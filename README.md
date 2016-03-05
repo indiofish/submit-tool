@@ -13,13 +13,19 @@ python submit.py 1920.cpp
 python submit.py 1920 1920.cpp
 ```
 
-#### 추가: Python의 경우 버전 선택 가능 (기본: python2)
+#### 추가: 몇몇 언어의 버전 선택 가능
 ```shell
-# python submit.py 파일이름 파이썬버전
-# python submit.py 문제번호 파일이름 파이썬 버전
+# python submit.py 파일이름 버전
+# python submit.py 문제번호 파일이름 버전
+(기본: python2)
 python submit.py 1920.py python3
 python submit.py 1920.py 3
 python submit.py 1920.py pypy
+
+(기본: c++)
+python submit.py 1920.cpp 11
+python submit.py 1920.cpp cpp11
+python submit.py 1920.cpp c++11
 ```
 	
 ## 주의 사항
