@@ -151,12 +151,14 @@ def get_result(solution_id, key):
         eval_result = int(ans['result'])
         if eval_result == 3:
             if 'progress' in result:
-                print u'%s (%s%%)' % (results[eval_result],result['progress'])
+                print u'\r\x1b[K%s (%s%%)' % (results[eval_result],result['progress']),
             else:
-                print u'%s' % (results[eval_result])
+                print u'\r\x1b[K%s' % (results[eval_result]),
         else:
-            print results[eval_result]
+            print '\r\x1b[K' + results[eval_result],
+        sys.stdout.flush()
         if eval_result >= 4:
+            print  # add newline
             if eval_result == 4:
                 print u'메모리: %(memory)s KB\n시간: %(time)s MS\n코드 길이: %(code_length)s B' % ans
             else:
