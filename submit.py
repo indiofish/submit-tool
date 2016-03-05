@@ -178,6 +178,7 @@ def main():
     if len(argv) < 1 or len(argv) > 3:
         print u'사용법: python submit.py filename'
         print u'사용법: python submit.py problem_id filename'
+        print u'사용법: python submit.py problem_id filename version'
         return
     if len(argv) == 1:
         filename = argv[0]
