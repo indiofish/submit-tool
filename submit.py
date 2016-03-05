@@ -24,7 +24,10 @@ def get_language(filename, version):
     if extension in ['.c']:
         return 0
     elif extension in ['.cpp','.cc','.cxx']:
-        return 1
+        if version in ['c++11', 'cpp11', '11']:
+            return 41
+        else:
+            return 1
     elif extension in ['.p','.pas']:
         return 2
     elif extension in ['.java']:
