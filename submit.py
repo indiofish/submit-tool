@@ -17,7 +17,7 @@ def get_source(filename):
     fp.close()
     return ({'error':False},source)
 
-def get_language(filename):
+def get_language(filename, version):
     dummy, extension = os.path.splitext(filename)
     if len(extension) == 0:
         return -1
@@ -34,7 +34,12 @@ def get_language(filename):
     elif extension in ['.sh']:
         return 5
     elif extension in ['.py']:
-        return 6
+        if version in [['python3'], ['3']]:
+            return 28
+        elif version in [['pypy']]:
+            return 32
+        else:
+            return 6
     elif extension in ['.php']:
         return 7
     elif extension in ['.pl']:
@@ -170,7 +175,7 @@ def get_problem_id_from_filename(filename):
         return -1
 def main():
     argv = sys.argv[1:]
-    if len(argv) < 1 or len(argv) > 2:
+    if len(argv) < 1 or len(argv) > 3:
         print u'사용법: python submit.py filename'
         print u'사용법: python submit.py problem_id filename'
         return
@@ -183,12 +188,13 @@ def main():
     else:
         problem_id = int(argv[0])
         filename = argv[1]
+        version = argv[2:]
     language = 1
     res,source = get_source(filename)
     if res['error']:
         print res['error_text']
         return
-    language = get_language(filename)
+    language = get_language(filename, version)
     if language == -1:
         print u'무슨 언어인지 모르겠어요. 확장자를 확인해 주세요'
         return
