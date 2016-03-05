@@ -177,7 +177,6 @@ def get_problem_id_from_filename(filename):
         return -1
 def main():
     argv = sys.argv[1:]
-    print argv
     version = []
     if len(argv) < 1 or len(argv) > 3:
         print u'사용법: python submit.py filename 또는'
