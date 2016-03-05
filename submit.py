@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# Submit Tool v 1.1
+# Submit Tool v 1.1.1
 import urllib, urllib2
 import sys
 import json
@@ -176,9 +176,8 @@ def get_problem_id_from_filename(filename):
 def main():
     argv = sys.argv[1:]
     if len(argv) < 1 or len(argv) > 3:
-        print u'사용법: python submit.py filename'
-        print u'사용법: python submit.py problem_id filename'
-        print u'사용법: python submit.py problem_id filename version'
+        print u'사용법: python submit.py filename 또는'
+        print u'사용법: python submit.py filename language_version'
         return
     if len(argv) == 1:
         filename = argv[0]
@@ -186,6 +185,10 @@ def main():
         if problem_id == -1:
             print u'파일 이름은 문제번호.확장자 형식이 되어야 합니다'
             return
+    elif len(argv) == 2:
+        filename = argv[0]
+        problem_id = get_problem_id_from_filename(filename)
+        version = argv[1:]
     else:
         problem_id = int(argv[0])
         filename = argv[1]
@@ -209,7 +212,7 @@ def main():
     if len(password) == 0:
         print u'비밀번호를 입력해 주세요'
         return
-    res = submit(username,password,problem_id,source,language)
+    res = submit(username, password, problem_id, source, language)
     if res['error']:
         print res['error_text']
         return
