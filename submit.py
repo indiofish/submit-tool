@@ -34,9 +34,9 @@ def get_language(filename, version):
     elif extension in ['.sh']:
         return 5
     elif extension in ['.py']:
-        if version in [['python3'], ['3']]:
+        if version in ['python3', '3']:
             return 28
-        elif version in [['pypy']]:
+        elif version in ['pypy']:
             return 32
         else:
             return 6
@@ -177,6 +177,8 @@ def get_problem_id_from_filename(filename):
         return -1
 def main():
     argv = sys.argv[1:]
+    print argv
+    version = []
     if len(argv) < 1 or len(argv) > 3:
         print u'사용법: python submit.py filename 또는'
         print u'사용법: python submit.py filename language_version'
@@ -188,13 +190,20 @@ def main():
             print u'파일 이름은 문제번호.확장자 형식이 되어야 합니다'
             return
     elif len(argv) == 2:
-        filename = argv[0]
-        problem_id = get_problem_id_from_filename(filename)
-        version = argv[1:]
+        try:
+            problem_id = int(argv[0])
+            filename = argv[1]
+        except ValueError:
+            filename = argv[0]
+            problem_id = get_problem_id_from_filename(filename)
+            if problem_id == -1:
+                print u'파일 이름은 문제번호.확장자 형식이 되어야 합니다'
+                return
+            version = argv[1]
     else:
         problem_id = int(argv[0])
         filename = argv[1]
-        version = argv[2:]
+        version = argv[2]
     language = 1
     res,source = get_source(filename)
     if res['error']:
